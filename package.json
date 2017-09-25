@@ -1,0 +1,13 @@
+{
+  "name": "node-speechkit",
+  "description": "yandex speechkit for node",
+  "version": "0.1.0",
+  "author": "valia fetisov",
+  "main": "lib.js",
+  "scripts": {
+    "test": "node ./examples/basic.js"
+  },
+  "dependencies": {
+    "puppeteer": "^0.10.2"
+  }
+}
