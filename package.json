@@ -1,13 +1,13 @@
 {
   "name": "node-speechkit",
   "description": "text to speech with yandex speechkit server-side",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "valia fetisov",
   "repository": {
     "type": "git",
     "url": "https://github.com/valiafetisov/node-speechkit.git"
   },
-  "main": "lib.js",
+  "main": "src.js",
   "scripts": {
     "test": "node ./examples/basic.js"
   },
