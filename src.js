@@ -11,7 +11,7 @@ const setupBrowserApi = async (options) => {
     window.tts = new ya.speechkit.Tts({
       apikey: options.apikey,
       emotion: options.emotion || 'good',
-      speed: options.speed || 0.9,
+      speed: options.speed || 1,
       lang: options.lang || 'en-US',
       speaker: options.speaker || 'ermil'
     })
@@ -19,25 +19,31 @@ const setupBrowserApi = async (options) => {
   })
 }
 
+const speakInBrower = async ({text, options}) => {
+  return new Promise((resolve, reject) => {
+    window.tts.speak(text, {
+      emotion: options.emotion,
+      speed: options.speed,
+      lang: options.lang,
+      speaker: options.speaker,
+      stopCallback: function () {
+        resolve()
+      }
+    })
+  })
+}
+
 const speechkit = function (options) {
-  return new Promise((resolveee, rejecteee) => {
+  return new Promise((resolve, reject) => {
     puppeteer.launch(chromeOptions).then(async browser => {
       const page = await browser.newPage()
       await page.addScriptTag('https://webasr.yandex.net/jsapi/v1/webspeechkit.js')
       await page.addScriptTag('https://webasr.yandex.net/jsapi/v1/webspeechkit-settings.js')
       await page.evaluate(setupBrowserApi, options)
-      const say = async (text) => {
-        await page.evaluate(async (text) => {
-          return new Promise((resolve, reject) => {
-            window.tts.speak(text, {
-              stopCallback: function () {
-                resolve()
-              }
-            })
-          })
-        }, text)
+      const speak = async (text, options) => {
+        await page.evaluate(speakInBrower, {text, options: options || {}})
       }
-      resolveee(say)
+      resolve(speak)
     })
   })
 }
