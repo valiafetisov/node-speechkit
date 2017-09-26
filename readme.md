@@ -41,3 +41,5 @@ Default parameters are:
   speaker: 'ermil'
 }
 ```
+
+Full list of available options is [here](https://tech.yandex.ru/speechkit/jsapi/doc/ref/reference/Tts-docpage/#constructor-summary).
